@@ -8,18 +8,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers
 {
-    //http://localhost:5000/api/users
+    //http://localhost:5000/api/Videos
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class VideosController : ControllerBase
     {
-        public IUserService _service { get; set; }
-        public UsersController(IUserService service)
+        public IVideoServices _service { get; set; }
+        public VideosController(IVideoServices service)
         {
             _service = service;
         }
 
-        [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -37,7 +36,6 @@ namespace Api.Application.Controllers
             }
         }
 
-        [Authorize("Bearer")]
         [HttpGet]
         [Route("{id}", Name = "GetWithId")]
         public async Task<ActionResult> Get(Guid id)
@@ -56,9 +54,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        [Authorize("Bearer")]
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UserEntities user)
+        public async Task<ActionResult> Post([FromBody] VideosEntities videoName)
         {
             if (!ModelState.IsValid)
             {
@@ -66,7 +63,7 @@ namespace Api.Application.Controllers
             }
             try
             {
-                var result = await _service.Post(user);
+                var result = await _service.Post(videoName);
                 if (result != null)
                 {
                     return Created(new Uri(Url.Link("GetWithId", new { id = result.id })), result);
@@ -82,9 +79,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        [Authorize("Bearer")]
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] UserEntities user)
+        public async Task<ActionResult> Put([FromBody] VideosEntities videoName)
         {
             if (!ModelState.IsValid)
             {
@@ -92,7 +88,7 @@ namespace Api.Application.Controllers
             }
             try
             {
-                var result = await _service.Put(user);
+                var result = await _service.Put(videoName);
                 if (result != null)
                 {
                     return Ok(result);
@@ -108,7 +104,6 @@ namespace Api.Application.Controllers
             }
         }
 
-        [Authorize("Bearer")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
