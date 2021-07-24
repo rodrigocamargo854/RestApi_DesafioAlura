@@ -6,7 +6,7 @@ namespace Api.Data.Context
 {
     public class MyContext : DbContext
     {
-        public DbSet<UserEntities> User { get; set; }
+        public DbSet<VideosEntities> Film { get; set; }
 
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
 
@@ -14,7 +14,8 @@ namespace Api.Data.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UserEntities>(new UserMap().Configure);
+            modelBuilder.Entity<VideosEntities>(new VideoMap().Configure);
+
         }
     }
 }

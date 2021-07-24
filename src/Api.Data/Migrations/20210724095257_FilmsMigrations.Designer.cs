@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210719210250_UserMigration")]
-    partial class UserMigration
+    [Migration("20210724095257_FilmsMigrations")]
+    partial class FilmsMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace Data.Migrations
                 .HasAnnotation("ProductVersion", "3.1.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Api.Domain.Entities.UserEntities", b =>
+            modelBuilder.Entity("Api.Domain.Entities.VideosEntities", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -28,11 +28,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
-
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
                         .HasMaxLength(100);
 
@@ -41,10 +37,7 @@ namespace Data.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("User");
+                    b.ToTable("Videos");
                 });
 #pragma warning restore 612, 618
         }

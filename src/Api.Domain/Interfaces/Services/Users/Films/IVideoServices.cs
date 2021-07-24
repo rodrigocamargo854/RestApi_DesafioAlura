@@ -9,14 +9,14 @@ namespace Api.Domain.Interfaces.Services.Users
     //?qual entidade necessitar. Metodos especificos que recebem o tipo 
     //?da entidade para
     //? Aqui criamos toda a regra de negocio.
-    public interface IUserService
+    public interface IVideoServices
     {
         //*Retorna um usuario 
-        Task<UserEntities> Get(Guid id);
+        Task<VideosEntities> Get(Guid id);
         //?Retorna uma lista de usuarios
-        Task<IEnumerable<UserEntities>> GetAll();
-        Task<UserEntities> Put(UserEntities id);
-        Task<UserEntities> Post(UserEntities id);
+        Task<IEnumerable<VideosEntities>> GetAll();
+        Task<VideosEntities> Put(VideosEntities id);
+        Task<VideosEntities> Post(VideosEntities id);
         Task<bool> Delete(Guid id);
 
 

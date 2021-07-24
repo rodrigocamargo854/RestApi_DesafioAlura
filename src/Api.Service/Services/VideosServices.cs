@@ -11,12 +11,12 @@ namespace Api.Service.Services
     //?Regras de negócio
     //*Todos os metodos estão implmentados 
 
-    public class UserServices : IUserService
+    public class VideosServices : IVideoServices
     {
         //*Repositorio para usuários
-        private IRepository<UserEntities> _repository;
+        private IRepository<VideosEntities> _repository;
         //*    //*Todos os metodos estão implmentados 
-        public UserServices(IRepository<UserEntities> repository)
+        public VideosServices(IRepository<VideosEntities> repository)
         {
             _repository = repository;
         }
@@ -25,24 +25,24 @@ namespace Api.Service.Services
             return await _repository.DeleteAsync(id);
         }
 
-        public async Task<UserEntities> Get(Guid id)
+        public async Task<VideosEntities> Get(Guid id)
         {
             return await _repository.SelectAsync(id);
         }
 
-        public async Task<IEnumerable<UserEntities>> GetAll()
+        public async Task<IEnumerable<VideosEntities>> GetAll()
         {
             return await _repository.SelectAsync();
         }
 
-        public async Task<UserEntities> Post(UserEntities user)
+        public async Task<VideosEntities> Post(VideosEntities film)
         {
-            return await _repository.InsertAsync(user);
+            return await _repository.InsertAsync(film);
         }
 
-        public async Task<UserEntities> Put(UserEntities user)
+        public async Task<VideosEntities> Put(VideosEntities film)
         {
-            return await _repository.UpdateAsync(user);
+            return await _repository.UpdateAsync(film);
         }
     }
 }

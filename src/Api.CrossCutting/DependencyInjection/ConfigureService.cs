@@ -14,8 +14,8 @@ namespace Api.CrossCutting.DependencyInjection
             // serviceCollection.AddScoped<IUserService, UserServices>();
             //?A injeção é feita somente uma vez
             // serviceCollection.AddSingleton<IUserService, UserServices>();
-            serviceCollection.AddTransient<IUserService, UserServices>();
-            serviceCollection.AddTransient<ILoginService, LoginService>();
+            serviceCollection.AddTransient<IVideoServices, VideosServices>();
+
         }
 
     }

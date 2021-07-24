@@ -113,7 +113,8 @@ namespace Api.Application.Controllers
             }
             try
             {
-                return Ok(await _service.Delete(id));
+                await _service.Delete(id);
+                return Content("Usuário deletado!");
             }
             catch (ArgumentException e)
             {
