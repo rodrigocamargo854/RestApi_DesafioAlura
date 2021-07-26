@@ -12,6 +12,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using Api.CrossCutting.Mappings;
+using AutoMapper;
 
 namespace application
 {
@@ -34,7 +36,20 @@ namespace application
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);
 
+
             var tokenConfigurations = new TokenConfiguratios();
+
+         //? configuração do mapeamento do autoMapper
+            var config = new AutoMapper.MapperConfiguration(cfg => {
+                cfg.AddProfile(new DtotoModelProfile());
+                cfg.AddProfile(new EntityToDtoProfile());
+                cfg.AddProfile(new ModelToEntityProfile());
+            });
+            //?Configuração da injeção de dependencia do autoMapper
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
             new ConfigureFromConfigurationOptions<TokenConfiguratios>(
                 Configuration.GetSection("TokenConfigurations"))
                      .Configure(tokenConfigurations);
@@ -88,8 +103,26 @@ namespace application
                 });
 
 
-
-
+                //? Botão de atorization
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Entre com o Token JWT",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+                //?Adicionando o Security Requirement para o botao 
+                //?Autorizathion
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme {
+                            Reference = new OpenApiReference {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        }, new List<string>()
+                    }
+                });
             });
         }
 
